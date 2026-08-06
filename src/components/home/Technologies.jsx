@@ -1,30 +1,103 @@
-import { TECHNOLOGIES } from '../../data/siteData'
+import React from 'react'
+import LogoLoop from './LogoLoop'
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiPython,
+  SiFlutter,
+  SiNodedotjs,
+  SiPostgresql,
+  SiDocker,
+  SiFigma,
+} from 'react-icons/si'
 
-/**
- * Infinite horizontal marquee of the tech stack. Duplicated once so the
- * CSS `marquee` keyframe (translateX 0 -> -50%) loops seamlessly.
- */
+// Tech logos paired with official hex brand colors
+const TECH_LOGOS = [
+  {
+    node: <SiReact />,
+    title: 'React',
+    href: 'https://react.dev',
+    color: '#61DAFB',
+  },
+  {
+    node: <SiNextdotjs />,
+    title: 'Next.js',
+    href: 'https://nextjs.org',
+    color: '#FFFFFF',
+  },
+  {
+    node: <SiTypescript />,
+    title: 'TypeScript',
+    href: 'https://www.typescriptlang.org',
+    color: '#3178C6',
+  },
+  {
+    node: <SiTailwindcss />,
+    title: 'Tailwind CSS',
+    href: 'https://tailwindcss.com',
+    color: '#06B6D4',
+  },
+  {
+    node: <SiPython />,
+    title: 'Python',
+    href: 'https://www.python.org',
+    color: '#3776AB',
+  },
+  {
+    node: <SiFlutter />,
+    title: 'Flutter',
+    href: 'https://flutter.dev',
+    color: '#02569B',
+  },
+  {
+    node: <SiNodedotjs />,
+    title: 'Node.js',
+    href: 'https://nodejs.org',
+    color: '#5FA04E',
+  },
+  {
+    node: <SiPostgresql />,
+    title: 'PostgreSQL',
+    href: 'https://www.postgresql.org',
+    color: '#4169E1',
+  },
+  {
+    node: <SiDocker />,
+    title: 'Docker',
+    href: 'https://www.docker.com',
+    color: '#2496ED',
+  },
+  {
+    node: <SiFigma />,
+    title: 'Figma',
+    href: 'https://www.figma.com',
+    color: '#F24E1E',
+  },
+]
+
 export default function Technologies() {
-  const items = [...TECHNOLOGIES, ...TECHNOLOGIES]
-
   return (
-    <section className="border-y border-white/10 bg-white/[0.02] py-10">
+    <section className="relative border-y border-white/10 bg-white/[0.02] py-10">
       <div className="mb-6 text-center">
         <span className="eyebrow">Technologies We Use</span>
       </div>
-      <div className="group relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-deep to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-deep to-transparent" />
-        <div className="flex w-max animate-marquee gap-10 group-hover:[animation-play-state:paused]">
-          {items.map((tech, i) => (
-            <span
-              key={`${tech}-${i}`}
-              className="glass rounded-full px-6 py-2.5 text-sm font-medium text-ink-muted"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
+
+      <div className="relative overflow-hidden">
+        {/* Left and Right Fade Edge Masks */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-deep via-deep/80 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-deep via-deep/80 to-transparent" />
+
+        {/* Infinite Logo Marquee */}
+        <LogoLoop
+          logos={TECH_LOGOS}
+          speed={35}
+          direction="left"
+          gap={24}
+          scaleOnHover
+          pauseOnHover
+        />
       </div>
     </section>
   )

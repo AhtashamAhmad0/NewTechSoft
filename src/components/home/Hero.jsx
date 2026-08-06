@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Sparkle } from 'lucide-react'
 import Button from '../ui/Button'
+import CursorGrid from './CursorGrid'
 
 const BUILD_LINES = [
   { label: 'web', text: 'npm run build -- --target=web', tint: 'text-cyan-soft' },
@@ -9,15 +10,10 @@ const BUILD_LINES = [
   { label: 'ai', text: 'python train.py --model=assistant', tint: 'text-amber-soft' },
 ]
 
-/**
- * Signature element of the redesign: a "glass terminal" that types out
- * build commands for web / app / AI — a direct, literal nod to what a
- * software house actually does, instead of a generic gradient blob.
- */
 function GlassTerminal() {
   const [lineIndex, setLineIndex] = useState(0)
   const [typed, setTyped] = useState('')
-  const [phase, setPhase] = useState('typing') // typing | pausing | deleting
+  const [phase, setPhase] = useState('typing')
 
   useEffect(() => {
     const current = BUILD_LINES[lineIndex].text
@@ -48,9 +44,9 @@ function GlassTerminal() {
       initial={{ opacity: 0, y: 30, rotate: -2 }}
       animate={{ opacity: 1, y: 0, rotate: -2 }}
       transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-      className="glass shadow-glow relative w-full max-w-md rounded-2xl p-1"
+      className="glass shadow-glow relative w-full max-w-md rounded-2xl p-1 z-10"
     >
-      <div className="rounded-[14px] bg-deep/70 p-5">
+      <div className="rounded-[14px] bg-deep/70 p-5 backdrop-blur-md">
         <div className="mb-4 flex items-center gap-1.5">
           <span className="h-3 w-3 rounded-full bg-[#FF5F57]" />
           <span className="h-3 w-3 rounded-full bg-[#FEBC2E]" />
@@ -64,7 +60,9 @@ function GlassTerminal() {
               <span className={line.tint}>~/{line.label}</span>
               <span className="text-ink-primary">
                 {i === lineIndex ? typed : i < lineIndex ? line.text : ''}
-                {i === lineIndex && <span className="ml-0.5 inline-block h-4 w-[2px] animate-blink bg-cyan align-middle" />}
+                {i === lineIndex && (
+                  <span className="ml-0.5 inline-block h-4 w-[2px] animate-blink bg-cyan align-middle" />
+                )}
               </span>
             </div>
           ))}
@@ -80,18 +78,27 @@ function GlassTerminal() {
 
 export default function Hero() {
   return (
-    <section className="section flex flex-col items-center gap-14 pt-8 lg:flex-row lg:items-center lg:gap-10 lg:pt-16">
+    <section className="section relative flex min-h-[600px] flex-col items-center gap-14 overflow-hidden pt-8 lg:flex-row lg:items-center lg:gap-10 lg:pt-16">
+      {/* Background Interactive CursorGrid */}
+      <div className="pointer-events-none absolute inset-0 -z-10 h-full w-full">
+        <CursorGrid
+          cellSize={70}
+          color="#D946EF"
+          radius={160}
+          falloff="smooth"
+          lineWidth={1.2}
+          clickPulse
+          pulseSpeed={600}
+        />
+      </div>
+
+      {/* Hero Content Left */}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="flex flex-1 flex-col items-start gap-6"
+        className="z-10 flex flex-1 flex-col items-start gap-6"
       >
-        <span className="eyebrow glass inline-flex items-center gap-2 rounded-full px-4 py-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
-          Software House · Islamabad
-        </span>
-
         <h1 className="text-balance font-display text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
           We build the web, <br />
           app &amp; <span className="gradient-text">AI products</span> <br />
@@ -128,8 +135,9 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      <div className="relative flex flex-1 items-center justify-center">
-        <div className="absolute h-72 w-72 rounded-full bg-violet/20 blur-3xl animate-float" />
+      {/* Hero Content Right */}
+      <div className="relative z-10 flex flex-1 items-center justify-center">
+        <div className="absolute h-72 w-72 animate-float rounded-full bg-violet/20 blur-3xl" />
         <GlassTerminal />
       </div>
     </section>
