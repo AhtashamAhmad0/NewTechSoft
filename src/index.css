@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-deep text-ink-primary font-body antialiased;
+    background-image: theme('backgroundImage.mesh-1'), theme('backgroundImage.noise');
+    background-attachment: fixed, fixed;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Visible keyboard focus everywhere — accessibility floor */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #2DD4FF;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: #7C5CFF;
+    color: #F5F7FF;
+  }
+
+  /* Respect reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Core glass-morphism surface used across the whole UI */
+  .glass {
+    @apply relative bg-white/[0.05] backdrop-blur-xl border border-white/10 shadow-glass;
+  }
+
+  .glass-hover {
+    @apply transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-1;
+  }
+
+  .glass-panel {
+    @apply glass rounded-2xl;
+  }
+
+  /* Sticky navbar glass state */
+  .glass-nav {
+    @apply bg-deep/60 backdrop-blur-xl border-b border-white/10;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs tracking-[0.2em] uppercase text-cyan-soft;
+  }
+
+  .gradient-text {
+    @apply bg-grad-brand bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-grad-brand px-6 py-3 font-semibold text-deep shadow-glow transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full glass px-6 py-3 font-semibold text-ink-primary transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5;
+  }
+
+  .section {
+    @apply relative mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 lg:py-28;
+  }
+
+  .container-narrow {
+    @apply mx-auto w-full max-w-3xl px-6;
+  }
+
+  .input-glass {
+    @apply w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-ink-primary placeholder:text-ink-faint outline-none transition-colors duration-200 focus:border-cyan/60;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ---- Swiper theme overrides (Portfolio + Testimonials carousels) ---- */
+.portfolio-swiper .swiper-button-next,
+.portfolio-swiper .swiper-button-prev {
+  top: -3.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background 0.2s ease;
+}
+.portfolio-swiper .swiper-button-next:hover,
+.portfolio-swiper .swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.portfolio-swiper .swiper-button-next {
+  right: 0;
+}
+.portfolio-swiper .swiper-button-prev {
+  right: 3.5rem;
+  left: auto;
+}
+.portfolio-swiper .swiper-button-next::after,
+.portfolio-swiper .swiper-button-prev::after {
+  font-size: 1rem;
+  color: #F5F7FF;
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.25);
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background: linear-gradient(135deg, #7C5CFF, #2DD4FF);
+  width: 22px;
+  border-radius: 9999px;
+  transition: width 0.2s ease;
+}
