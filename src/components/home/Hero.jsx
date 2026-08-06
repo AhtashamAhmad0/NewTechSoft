@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Sparkle } from 'lucide-react'
 import Button from '../ui/Button'
-import CursorGrid from './CursorGrid'
+import CursorGrid from './cursorGrid'
 
 const BUILD_LINES = [
   { label: 'web', text: 'npm run build -- --target=web', tint: 'text-cyan-soft' },
