@@ -36,7 +36,7 @@ export default function Team() {
       
       <div className="container mx-auto px-4">
         <SectionHeading
-          eyebrow="Core Engineers & Creators"
+          // eyebrow="Core Engineers & Creators"
           title="Small team, senior work."
           description="Every project is staffed with builders who ship, not account managers relaying requests."
         />
