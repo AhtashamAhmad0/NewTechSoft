@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Sparkle } from 'lucide-react'
 import Button from '../ui/Button'
-import CursorGrid from './cursorGrid'
+import CursorGrid from './CursorGrid'
 
 const BUILD_LINES = [
   { label: 'web', text: 'npm run build -- --target=web', tint: 'text-cyan-soft' },
@@ -78,17 +78,28 @@ function GlassTerminal() {
 
 export default function Hero() {
   return (
-    <section className="section relative flex min-h-[600px] flex-col items-center gap-14 overflow-hidden pt-8 lg:flex-row lg:items-center lg:gap-10 lg:pt-16">
-      {/* Background Interactive CursorGrid */}
-      <div className="pointer-events-none absolute inset-0 -z-10 h-full w-full">
+    <section className="relative flex min-h-[650px] w-full flex-col items-center justify-between gap-14 overflow-hidden pt-8 lg:flex-row lg:items-center lg:gap-10 lg:pt-16">
+      {/* Background Grid Canvas Wrapper */}
+      <div 
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      >
         <CursorGrid
           cellSize={70}
           color="#D946EF"
+          secondaryColor="#06B6D4"
           radius={160}
-          falloff="smooth"
           lineWidth={1.2}
           clickPulse
-          pulseSpeed={600}
         />
       </div>
 
@@ -97,7 +108,7 @@ export default function Hero() {
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="z-10 flex flex-1 flex-col items-start gap-6"
+        className="relative z-10 flex flex-1 flex-col items-start gap-6"
       >
         <h1 className="text-balance font-display text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-6xl">
           We build the web, <br />

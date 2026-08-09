@@ -71,7 +71,7 @@ const TECH_LOGOS = [
   },
   {
     node: <SiFigma />,
-    // title: 'Figma',
+    //  title: 'Figma',
     href: 'https://www.figma.com',
     color: '#F24E1E',
   },
