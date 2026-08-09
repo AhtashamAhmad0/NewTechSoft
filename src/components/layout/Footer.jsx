@@ -89,7 +89,7 @@ export default function Footer() {
       <div className="border-t border-white/10 px-6 py-6 sm:px-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-xs text-ink-faint sm:flex-row">
           <p>© {new Date().getFullYear()} {COMPANY.name}. All rights reserved.</p>
-          <p>Designed &amp; built with a Glass Morphism system.</p>
+          
         </div>
       </div>
     </footer>
